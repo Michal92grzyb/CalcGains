@@ -24,5 +24,25 @@ namespace CalcGains
         {
             InitializeComponent();
         }
+
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddMealButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CalculateDietButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

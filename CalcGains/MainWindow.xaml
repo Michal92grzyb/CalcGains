@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalcGains"
         mc:Ignorable="d"
-        Title="MainWindow">
+        Title="MainWindow"
+        Loaded="Window_Loaded">
     <Grid>
-        <Button/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="500"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button
+            Grid.Column="0"
+            Grid.Row="1"
+            Content="Dodaj produkt"
+            Name="AddProductButton"
+            Click="AddProductButton_Click" />
+        <Button
+            Grid.Column="1"
+            Grid.Row="1"
+            Content="Dodaj posiłek"
+            Name="AddMealButton"
+            Click="AddMealButton_Click"/>
+        <Button
+            Grid.Column="2"
+            Grid.Row="1"
+            Content="Oblicz zapotrzebowanie"
+            Name="CalculateDietButton"
+            Click="CalculateDietButton_Click"/>
     </Grid>
 </Window>
