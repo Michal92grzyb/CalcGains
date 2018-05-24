@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalcGains.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,12 @@ namespace CalcGains
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
 
         private void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
-
+            (DataContext as MainWindowViewModel).command1.Execute(e);
         }
 
         private void AddMealButton_Click(object sender, RoutedEventArgs e)
