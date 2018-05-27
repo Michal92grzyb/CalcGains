@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:CalcGains"
         xmlns:vm="clr-namespace:CalcGains.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Loaded="Window_Loaded">
+        Title="MainWindow">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="vm"/>
     </Window.Resources>
@@ -35,14 +34,12 @@
                 Grid.Column="1"
                 Grid.Row="1"
                 Content="Dodaj posiłek"
-                Name="AddMealButton"
-                Click="AddMealButton_Click"/>
+                Name="AddMealButton"/>
             <Button
                 Grid.Column="2"
                 Grid.Row="1"
                 Content="Oblicz zapotrzebowanie"
-                Name="CalculateDietButton"
-                Click="CalculateDietButton_Click"/>
+                Name="CalculateDietButton"/>
         </Grid>
         <Grid
             x:Name="AddProductGrid"

@@ -21,30 +21,9 @@ namespace CalcGains
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void AddProductButton_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as MainWindowViewModel).command1.Execute(e);
-        }
-
-        private void AddMealButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CalculateDietButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
