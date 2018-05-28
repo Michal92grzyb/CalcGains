@@ -14,23 +14,27 @@ namespace CalcGains.ViewModels
     {
         public ICommand command1 { get; private set; }
 
-        private Visibility _vis;
+        private bool _vis;
 
-        public Visibility Vis
+        public bool Vis
         {
             get { return _vis; }
-            set { _vis = value; }
+            set
+            {
+                _vis = value;
+                RaisePropertyChanged(nameof(Vis));
+            }
         }
 
         public MainWindowViewModel()
         {
             command1 = new RelayCommand(command1c);
-            _vis = Visibility.Collapsed;
+            Vis = false;
         }
 
         private void command1c()
         {
-            Console.WriteLine("dziala");
+            Vis = !Vis;
         }
     }
 }

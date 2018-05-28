@@ -9,6 +9,7 @@
         Title="MainWindow">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="vm"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilitConverter"/>
     </Window.Resources>
     <Grid
         DataContext="{StaticResource vm}">
@@ -46,7 +47,7 @@
             Width="500"
             Height="100"
             Background="Red"
-            Visibility="{Binding Vis, Mode=TwoWay}">
+            Visibility="{Binding Vis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilitConverter}}">
             
         </Grid>
     </Grid>
