@@ -14,27 +14,27 @@ namespace CalcGains.ViewModels
     {
         public ICommand command1 { get; private set; }
 
-        private bool _vis;
+        private bool _addProductVisibility;
 
-        public bool Vis
+        public bool AddProductVisibility
         {
-            get { return _vis; }
+            get { return _addProductVisibility; }
             set
             {
-                _vis = value;
-                RaisePropertyChanged(nameof(Vis));
+                _addProductVisibility = value;
+                RaisePropertyChanged(nameof(AddProductVisibility));
             }
         }
 
         public MainWindowViewModel()
         {
             command1 = new RelayCommand(command1c);
-            Vis = false;
+            AddProductVisibility = false;
         }
 
         private void command1c()
         {
-            Vis = !Vis;
+            AddProductVisibility = !AddProductVisibility;
         }
     }
 }

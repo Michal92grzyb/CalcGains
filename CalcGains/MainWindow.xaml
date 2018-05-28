@@ -47,7 +47,7 @@
             Width="500"
             Height="100"
             Background="Red"
-            Visibility="{Binding Vis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilitConverter}}">
+            Visibility="{Binding AddProductVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilitConverter}}">
             
         </Grid>
     </Grid>
