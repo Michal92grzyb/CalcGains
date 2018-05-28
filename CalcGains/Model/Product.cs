@@ -14,7 +14,7 @@ namespace CalcGains.Model
         public double Fat { get; set; }
         public double Protein { get; set; }
 
-        public Product(string name, double calories, double carbs, double fat, double protein)
+        public Product(string name, double calories, double protein, double fat, double carbs)
         {
             Name = name;
             Calories = calories;
