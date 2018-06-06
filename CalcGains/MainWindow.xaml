@@ -27,6 +27,25 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Border
+                Grid.Column="0"
+                Grid.Row="0"
+                BorderBrush="LightGray"
+                BorderThickness="10"/>
+            <DataGrid 
+                AutoGenerateColumns="False" 
+                HorizontalAlignment="Left" 
+                x:Name="ProductsList" 
+                VerticalAlignment="Top"
+                ItemsSource="{Binding Products}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" MinWidth="50" />
+                    <DataGridTextColumn Binding="{Binding Calories}" MinWidth="50" />
+                    <DataGridTextColumn Binding="{Binding Carbs }" MinWidth="50" />
+                    <DataGridTextColumn Binding="{Binding Fat}" MinWidth="50" />
+                    <DataGridTextColumn Binding="{Binding Protein}" MinWidth="50" />
+                </DataGrid.Columns>
+            </DataGrid>
             <Button
                 Grid.Column="0"
                 Grid.Row="1"
@@ -50,11 +69,6 @@
             Height="150"
             Margin="0 0 0 50"
             VerticalAlignment="Bottom">
-            <Border
-                Background="Blue"
-                Grid.ColumnSpan="5"
-                Grid.RowSpan="3"
-                Margin="1"/>
         <Grid
             Margin="5"
             x:Name="AddProductGrid"
@@ -71,6 +85,11 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Border
+                BorderBrush="Yellow"
+                BorderThickness="10"
+                Grid.ColumnSpan="5"
+                Grid.RowSpan="3"/>
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"

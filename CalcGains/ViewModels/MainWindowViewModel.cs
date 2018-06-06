@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,7 +86,20 @@ namespace CalcGains.ViewModels
             }
         }
 
-        private List<Product> _productsList; 
+        private List<Product> _productsList;
+        public ObservableCollection<Product> Products
+        {
+            get
+            {
+                return new ObservableCollection<Product>(_productsList);
+            }
+            set
+            {
+                _productsList = value.ToList<Product>();
+                RaisePropertyChanged();
+            }
+        }
+
         private bool _addProductVisibility;
 
         public bool AddProductVisibility
@@ -122,8 +136,10 @@ namespace CalcGains.ViewModels
                 double carb = double.Parse(Carbs);
                 Product newProduct = new Product(ProductName, kcal, prot, fatty, carb);
                 _productsList.Add(newProduct);
+                Products = new ObservableCollection<Product>(_productsList);
                 AddProductVisibility = false;
                 Calories = Protein = Fat = Carbs = ProductName = string.Empty;
+                
             }
             catch
             {
