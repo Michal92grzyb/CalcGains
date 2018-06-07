@@ -1,4 +1,5 @@
 ﻿using CalcGains.Model;
+using CalcGains.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -16,6 +17,7 @@ namespace CalcGains.ViewModels
     {
         public ICommand AddProductCommand { get; private set; }
         public ICommand AddProductDoneCommand { get; private set; }
+        public ICommand RemoveProductCommand { get; private set; }
 
         private string _productName;
         public string ProductName
@@ -86,6 +88,20 @@ namespace CalcGains.ViewModels
             }
         }
 
+        private Product _selectedProduct;
+        public Product SelectedProduct
+        {
+            get
+            {
+                return _selectedProduct;
+            }
+            set
+            {
+                _selectedProduct = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private List<Product> _productsList;
         public ObservableCollection<Product> Products
         {
@@ -116,14 +132,21 @@ namespace CalcGains.ViewModels
         {
             AddProductCommand = new RelayCommand(ShowAddProductBar);
             AddProductDoneCommand = new RelayCommand(AddProduct);
+            RemoveProductCommand = new RelayCommand(RemoveProduct);
             AddProductVisibility = false;
-            _productsList = new List<Product>();
-
+            _productsList = ProductsSaver<Product>.LoadFromCsv();
+            RaisePropertyChanged();
         }
 
         private void ShowAddProductBar()
         {
             AddProductVisibility = !AddProductVisibility;
+        }
+
+        private void RemoveProduct()
+        {
+            _productsList.Remove((Product)SelectedProduct);
+            Products = new ObservableCollection<Product>(_productsList);
         }
 
         private void AddProduct()
@@ -139,7 +162,7 @@ namespace CalcGains.ViewModels
                 Products = new ObservableCollection<Product>(_productsList);
                 AddProductVisibility = false;
                 Calories = Protein = Fat = Carbs = ProductName = string.Empty;
-                
+                ProductsSaver<Product>.SaveToCsv(newProduct);
             }
             catch
             {

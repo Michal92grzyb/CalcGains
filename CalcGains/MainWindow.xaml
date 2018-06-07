@@ -38,6 +38,8 @@
                 x:Name="ProductsList" 
                 VerticalAlignment="Top"
                 Margin="10"
+                IsReadOnly="True"
+                SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
                 ItemsSource="{Binding Products}">
                 <DataGrid.Columns>
                     <DataGridTextColumn   
@@ -62,6 +64,11 @@
                         Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
+            <Button 
+                Grid.Column="0"
+                Grid.Row="2"
+                Content="Dodaj produkt"
+                Command="{Binding RemoveProductCommand}"/>
             <Button
                 Grid.Column="0"
                 Grid.Row="1"

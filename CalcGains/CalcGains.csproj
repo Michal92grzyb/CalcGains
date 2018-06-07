@@ -73,6 +73,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Product.cs" />
+    <Compile Include="Services\ProductsReader.cs" />
+    <Compile Include="Services\ProductsSaver.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
