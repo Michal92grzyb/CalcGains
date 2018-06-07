@@ -20,10 +20,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="500"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -37,13 +37,29 @@
                 HorizontalAlignment="Left" 
                 x:Name="ProductsList" 
                 VerticalAlignment="Top"
+                Margin="10"
                 ItemsSource="{Binding Products}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Name}" MinWidth="50" />
-                    <DataGridTextColumn Binding="{Binding Calories}" MinWidth="50" />
-                    <DataGridTextColumn Binding="{Binding Carbs }" MinWidth="50" />
-                    <DataGridTextColumn Binding="{Binding Fat}" MinWidth="50" />
-                    <DataGridTextColumn Binding="{Binding Protein}" MinWidth="50" />
+                    <DataGridTextColumn   
+                        Header="Name" 
+                        Binding="{Binding Name}" 
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Calories"
+                        Binding="{Binding Calories}" 
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Carbohydrates" 
+                        Binding="{Binding Carbs }" 
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Fat" 
+                        Binding="{Binding Fat}"
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Protein" 
+                        Binding="{Binding Protein}" 
+                        Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
             <Button
