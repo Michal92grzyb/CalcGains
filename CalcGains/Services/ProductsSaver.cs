@@ -10,19 +10,22 @@ using CsvHelper.Configuration;
 
 namespace CalcGains.Services
 {
-    public static class ProductsSaver<T> where T : Product
+    public static class ProductsSaver
     {
-        public static void SaveToCsv(T product)
+        public static void SaveToCsv(List<Product> products)
         {
-            using (TextWriter writer = new StreamWriter("Products.csv", true))
+            using (TextWriter writer = new StreamWriter("Products.csv", false))
             {
                 var csvWriter = new CsvWriter(writer);
-                csvWriter.WriteField(product.Name);
-                csvWriter.WriteField(product.Calories);
-                csvWriter.WriteField(product.Protein);
-                csvWriter.WriteField(product.Fat);
-                csvWriter.WriteField(product.Carbs);
-                csvWriter.NextRecord();
+                foreach (Product product in products)
+                {
+                    csvWriter.WriteField(product.Name);
+                    csvWriter.WriteField(product.Calories);
+                    csvWriter.WriteField(product.Protein);
+                    csvWriter.WriteField(product.Fat);
+                    csvWriter.WriteField(product.Carbs);
+                    csvWriter.NextRecord();
+                }
                 writer.Flush();
             }
         }

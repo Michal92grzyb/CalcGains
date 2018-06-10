@@ -51,30 +51,44 @@
                         Binding="{Binding Calories}" 
                         Width="*" />
                     <DataGridTextColumn    
-                        Header="Carbohydrates" 
-                        Binding="{Binding Carbs }" 
+                        Header="Protein" 
+                        Binding="{Binding Protein}" 
                         Width="*" />
                     <DataGridTextColumn    
                         Header="Fat" 
                         Binding="{Binding Fat}"
                         Width="*" />
                     <DataGridTextColumn    
-                        Header="Protein" 
-                        Binding="{Binding Protein}" 
+                        Header="Carbohydrates" 
+                        Binding="{Binding Carbs }" 
                         Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button 
+            <Grid
                 Grid.Column="0"
-                Grid.Row="2"
-                Content="Dodaj produkt"
-                Command="{Binding RemoveProductCommand}"/>
-            <Button
-                Grid.Column="0"
-                Grid.Row="1"
-                Content="Dodaj produkt"
-                Name="AddProductButton"
-                Command="{Binding AddProductCommand}"/>
+                Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Content="Dodaj produkt"
+                    Name="AddProductButton"
+                    Command="{Binding AddProductCommand}"
+                    Margin="15"/>
+                <Button 
+                    Grid.Column="1"
+                    Content="Usuń produkt"
+                    Command="{Binding RemoveProductCommand}"
+                    Margin="15"/>
+                <Button 
+                    Grid.Column="2"
+                    Content="Edytuj produkt"
+                    Command="{Binding EditProductCommand}"
+                    Margin="15"/>
+            </Grid>
             <Button
                 Grid.Column="1"
                 Grid.Row="1"

@@ -18,6 +18,7 @@ namespace CalcGains.ViewModels
         public ICommand AddProductCommand { get; private set; }
         public ICommand AddProductDoneCommand { get; private set; }
         public ICommand RemoveProductCommand { get; private set; }
+        public ICommand EditProductCommand { get; private set; }
 
         private string _productName;
         public string ProductName
@@ -133,8 +134,9 @@ namespace CalcGains.ViewModels
             AddProductCommand = new RelayCommand(ShowAddProductBar);
             AddProductDoneCommand = new RelayCommand(AddProduct);
             RemoveProductCommand = new RelayCommand(RemoveProduct);
+            EditProductCommand = new RelayCommand(EditProduct);
             AddProductVisibility = false;
-            _productsList = ProductsSaver<Product>.LoadFromCsv();
+            _productsList = ProductsSaver.LoadFromCsv();
             RaisePropertyChanged();
         }
 
@@ -143,30 +145,70 @@ namespace CalcGains.ViewModels
             AddProductVisibility = !AddProductVisibility;
         }
 
+        private bool _isEditingProduct = false;
+
+        private void EditProduct()
+        {
+            if (_selectedProduct != null)
+            { 
+            AddProductVisibility = true;
+            ProductName = SelectedProduct.Name;
+            Calories = SelectedProduct.Calories.ToString();
+            Protein = SelectedProduct.Protein.ToString();
+            Fat = SelectedProduct.Fat.ToString();
+            Carbs = SelectedProduct.Carbs.ToString();
+
+            _isEditingProduct = true;
+            }
+        }
+
         private void RemoveProduct()
         {
             _productsList.Remove((Product)SelectedProduct);
             Products = new ObservableCollection<Product>(_productsList);
+            ProductsSaver.SaveToCsv(_productsList);
         }
 
         private void AddProduct()
         {
             try
             {
-                double kcal = double.Parse(Calories);
-                double prot = double.Parse(Protein);
-                double fatty = double.Parse(Fat);
-                double carb = double.Parse(Carbs);
-                Product newProduct = new Product(ProductName, kcal, prot, fatty, carb);
-                _productsList.Add(newProduct);
-                Products = new ObservableCollection<Product>(_productsList);
-                AddProductVisibility = false;
-                Calories = Protein = Fat = Carbs = ProductName = string.Empty;
-                ProductsSaver<Product>.SaveToCsv(newProduct);
+                if (!_isEditingProduct)
+                {
+                    double kcal = double.Parse(Calories);
+                    double prot = double.Parse(Protein);
+                    double fatty = double.Parse(Fat);
+                    double carb = double.Parse(Carbs);
+                    Product newProduct = new Product(ProductName, kcal, prot, fatty, carb);
+                    _productsList.Add(newProduct);
+                    Products = new ObservableCollection<Product>(_productsList);
+                    Calories = Protein = Fat = Carbs = ProductName = string.Empty;
+                    ProductsSaver.SaveToCsv(_productsList);
+                }
+                else
+                {
+                    double kcal = double.Parse(Calories);
+                    double prot = double.Parse(Protein);
+                    double fatty = double.Parse(Fat);
+                    double carb = double.Parse(Carbs);
+                    Product newProduct = new Product(ProductName, kcal, prot, fatty, carb);
+                    int index = Products.IndexOf(_selectedProduct);
+                    _productsList.RemoveAt(index);
+                    _productsList.Insert(index, newProduct);
+                    Products = new ObservableCollection<Product>(_productsList);
+                    Calories = Protein = Fat = Carbs = ProductName = string.Empty;
+                    ProductsSaver.SaveToCsv(_productsList);
+                }
             }
             catch
             {
                 MessageBox.Show("wrong data", "Error");
+
+            }
+            finally
+            {
+                _isEditingProduct = false;
+                AddProductVisibility = false;
             }
         }
     }
