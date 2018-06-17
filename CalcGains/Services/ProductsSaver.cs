@@ -48,5 +48,25 @@ namespace CalcGains.Services
             }
             return result;
         }
+
+        public static void SaveMealsToCsv(Meal meal)
+        {
+            using (TextWriter writer = new StreamWriter("Meals.csv", true))
+            {
+                var csvWriter = new CsvWriter(writer);
+                csvWriter.Configuration.Delimiter = "\t";
+                foreach (Component component in meal.Components)
+                {
+                    csvWriter.WriteField(component.Product.Name);
+                    csvWriter.WriteField(component.Product.Calories);
+                    csvWriter.WriteField(component.Product.Protein);
+                    csvWriter.WriteField(component.Product.Fat);
+                    csvWriter.WriteField(component.Product.Carbs);
+                    csvWriter.NextRecord();
+                }
+                csvWriter.NextRecord();
+                writer.Flush();
+            }
+        }
     }
 }

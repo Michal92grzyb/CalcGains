@@ -14,5 +14,6 @@ namespace CalcGains.Model
         {
             Components = components;
         }
+        
     }
 }

@@ -19,8 +19,10 @@ namespace CalcGains.ViewModels
         public ICommand AddProductDoneCommand { get; private set; }
         public ICommand RemoveProductCommand { get; private set; }
         public ICommand EditProductCommand { get; private set; }
-        
+
         public ICommand AddMealCommand { get; private set; }
+        public ICommand AddMealDoneCommand { get; private set; }
+        public ICommand AddProductToMealCommand { get; private set; }
 
         private bool _isEditingProduct = false;
 
@@ -120,6 +122,42 @@ namespace CalcGains.ViewModels
                 RaisePropertyChanged();
             }
         }
+        
+        private double _productToAddWeight;
+        public double ProductToAddWeight
+        {
+            get
+            {
+                return _productToAddWeight;
+            }
+            set
+            {
+                _productToAddWeight = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _productToAdd;
+        public string ProductToAdd
+        {
+            get
+            {
+                return _productToAdd;
+            }
+            set
+            {
+                _productToAdd = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public List<string> ProductsNames
+        {
+            get
+            {
+                return new List<string>(_productsList.Select(x => x.Name).OrderBy(name => name).ToList());
+            }
+        }
 
         private bool _addProductVisibility;
         public bool AddProductVisibility
@@ -143,20 +181,77 @@ namespace CalcGains.ViewModels
             }
         }
 
+        private string _addedProducts;
+        public string AddedProducts
+        {
+            get { return _addedProducts; }
+            set
+            {
+                _addedProducts = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Meal _mealToAdd;
+        public Meal MealToAdd
+        {
+            get { return _mealToAdd; }
+            set
+            {
+                _mealToAdd = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private List<Meal> _mealList;
+        public ObservableCollection<Meal> Meals
+        {
+            get
+            {
+                return new ObservableCollection<Meal>(_mealList);
+            }
+            set
+            {
+                _mealList = value.ToList<Meal>();
+                RaisePropertyChanged();
+            }
+        }
+
         public MainWindowViewModel()
         {
             AddProductCommand = new RelayCommand(ShowAddProductBar);
             AddProductDoneCommand = new RelayCommand(AddProduct);
             RemoveProductCommand = new RelayCommand(RemoveProduct);
             EditProductCommand = new RelayCommand(EditProduct);
-            AddMealCommand = new RelayCommand(AddMeal);
+            AddMealCommand = new RelayCommand(ShowAddMealBar);
+            AddMealDoneCommand = new RelayCommand(AddMeal);
+            AddProductToMealCommand = new RelayCommand(AddProductToMeal);
             AddProductVisibility = false;
             AddMealVisibility = false;
             _productsList = ProductsSaver.LoadFromCsv();
+            _mealList = new List<Meal>(); // beda ladowane z pliku
+            AddedProducts = "Obecnie dodane produkty: ";
+            MealToAdd = new Meal(new List<Component>());
             RaisePropertyChanged();
         }
 
+        private void AddProductToMeal()
+        {
+            Component newComponent = new Component(_productsList.Single(x => x.Name == ProductToAdd), ProductToAddWeight);
+            MealToAdd.Components.Add(newComponent);
+            AddedProducts += "\n" + ProductToAdd + ", waga: " + ProductToAddWeight + "g,";
+        }
+
         private void AddMeal()
+        {
+            _mealList.Add(MealToAdd);
+            AddMealVisibility = false;
+            AddedProducts = "Obecnie dodane produkty: ";
+            ProductsSaver.SaveMealsToCsv(MealToAdd);
+            MealToAdd = new Meal(new List<Component>());
+        }
+
+        private void ShowAddMealBar()
         {
             AddMealVisibility = true;
         }
