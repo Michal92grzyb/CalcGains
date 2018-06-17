@@ -17,6 +17,7 @@ namespace CalcGains.Services
             using (TextWriter writer = new StreamWriter("Products.csv", false))
             {
                 var csvWriter = new CsvWriter(writer);
+                csvWriter.Configuration.Delimiter = "\t";
                 foreach (Product product in products)
                 {
                     csvWriter.WriteField(product.Name);
@@ -36,6 +37,7 @@ namespace CalcGains.Services
             using (TextReader reader = new StreamReader("Products.csv"))
             {
                 var csvReader = new CsvReader(reader);
+                csvReader.Configuration.Delimiter = "\t";
                 Product value;
                 csvReader.Configuration.HasHeaderRecord = false;
                 while (csvReader.Read())

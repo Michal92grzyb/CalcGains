@@ -19,6 +19,10 @@ namespace CalcGains.ViewModels
         public ICommand AddProductDoneCommand { get; private set; }
         public ICommand RemoveProductCommand { get; private set; }
         public ICommand EditProductCommand { get; private set; }
+        
+        public ICommand AddMealCommand { get; private set; }
+
+        private bool _isEditingProduct = false;
 
         private string _productName;
         public string ProductName
@@ -118,7 +122,6 @@ namespace CalcGains.ViewModels
         }
 
         private bool _addProductVisibility;
-
         public bool AddProductVisibility
         {
             get { return _addProductVisibility; }
@@ -129,23 +132,39 @@ namespace CalcGains.ViewModels
             }
         }
 
+        private bool _addMealVisibility;
+        public bool AddMealVisibility
+        {
+            get { return _addMealVisibility; }
+            set
+            {
+                _addMealVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public MainWindowViewModel()
         {
             AddProductCommand = new RelayCommand(ShowAddProductBar);
             AddProductDoneCommand = new RelayCommand(AddProduct);
             RemoveProductCommand = new RelayCommand(RemoveProduct);
             EditProductCommand = new RelayCommand(EditProduct);
+            AddMealCommand = new RelayCommand(AddMeal);
             AddProductVisibility = false;
+            AddMealVisibility = false;
             _productsList = ProductsSaver.LoadFromCsv();
             RaisePropertyChanged();
+        }
+
+        private void AddMeal()
+        {
+            AddMealVisibility = true;
         }
 
         private void ShowAddProductBar()
         {
             AddProductVisibility = !AddProductVisibility;
         }
-
-        private bool _isEditingProduct = false;
 
         private void EditProduct()
         {
@@ -180,10 +199,16 @@ namespace CalcGains.ViewModels
                     double fatty = double.Parse(Fat);
                     double carb = double.Parse(Carbs);
                     Product newProduct = new Product(ProductName, kcal, prot, fatty, carb);
+
+                    if (!_productsList.Any(x => x.Name == newProduct.Name))
+                    { 
                     _productsList.Add(newProduct);
                     Products = new ObservableCollection<Product>(_productsList);
                     Calories = Protein = Fat = Carbs = ProductName = string.Empty;
                     ProductsSaver.SaveToCsv(_productsList);
+                    }
+                    else
+                        MessageBox.Show("same data", "Error");
                 }
                 else
                 {
@@ -193,11 +218,16 @@ namespace CalcGains.ViewModels
                     double carb = double.Parse(Carbs);
                     Product newProduct = new Product(ProductName, kcal, prot, fatty, carb);
                     int index = Products.IndexOf(_selectedProduct);
-                    _productsList.RemoveAt(index);
-                    _productsList.Insert(index, newProduct);
-                    Products = new ObservableCollection<Product>(_productsList);
-                    Calories = Protein = Fat = Carbs = ProductName = string.Empty;
-                    ProductsSaver.SaveToCsv(_productsList);
+                    if (!_productsList.Where((v, i) => i != index).Any(x => x.Name == newProduct.Name))
+                    {
+                        _productsList.RemoveAt(index);
+                        _productsList.Insert(index, newProduct);
+                        Products = new ObservableCollection<Product>(_productsList);
+                        Calories = Protein = Fat = Carbs = ProductName = string.Empty;
+                        ProductsSaver.SaveToCsv(_productsList);
+                    }
+                    else
+                        MessageBox.Show("same data", "Error");
                 }
             }
             catch

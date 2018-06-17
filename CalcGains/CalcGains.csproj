@@ -72,6 +72,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Component.cs" />
+    <Compile Include="Model\Meal.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Services\ProductsReader.cs" />
     <Compile Include="Services\ProductsSaver.cs" />
