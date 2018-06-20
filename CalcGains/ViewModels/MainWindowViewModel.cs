@@ -231,7 +231,6 @@ namespace CalcGains.ViewModels
             _productsList = ProductsSaver.LoadFromCsv();
             _mealList = new List<Meal>(); // beda ladowane z pliku
             AddedProducts = "Obecnie dodane produkty: ";
-            MealToAdd = new Meal(new List<Component>());
             RaisePropertyChanged();
         }
 
@@ -247,12 +246,13 @@ namespace CalcGains.ViewModels
             _mealList.Add(MealToAdd);
             AddMealVisibility = false;
             AddedProducts = "Obecnie dodane produkty: ";
+            Meals = new ObservableCollection<Meal>(_mealList); // tutuaj
             ProductsSaver.SaveMealsToCsv(MealToAdd);
-            MealToAdd = new Meal(new List<Component>());
         }
 
         private void ShowAddMealBar()
         {
+            MealToAdd = new Meal(new List<Component>());
             AddMealVisibility = true;
         }
 
