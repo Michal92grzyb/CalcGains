@@ -57,6 +57,8 @@ namespace CalcGains.Services
                 csvWriter.Configuration.Delimiter = "\t";
                 foreach (Component component in meal.Components)
                 {
+                    csvWriter.WriteField(meal.DateConsumed);
+                    csvWriter.WriteField(component.Weight);
                     csvWriter.WriteField(component.Product.Name);
                     csvWriter.WriteField(component.Product.Calories);
                     csvWriter.WriteField(component.Product.Protein);
@@ -64,9 +66,37 @@ namespace CalcGains.Services
                     csvWriter.WriteField(component.Product.Carbs);
                     csvWriter.NextRecord();
                 }
-                csvWriter.NextRecord();
                 writer.Flush();
             }
+        }
+
+        public static List<Meal> LoadMealsFromCsv()
+        {
+            List<Meal> returnValue = new List<Meal>();
+            using (TextReader reader = new StreamReader("Meals.csv"))
+            {
+                var csvReader = new CsvReader(reader);
+                csvReader.Configuration.Delimiter = "\t";
+                Meal meal = new Meal();
+                csvReader.Configuration.HasHeaderRecord = false;
+                while (csvReader.Read())
+                {
+                    if (meal.DateConsumed != DateTime.Parse(csvReader.GetField(0)))
+                    {
+                        if (meal.Components.Count != 0)
+                        {
+                            returnValue.Add(meal);
+                            meal = new Meal();
+                            meal.DateConsumed = DateTime.Parse(csvReader.GetField(0));
+                        }
+                    }
+                    Product prod = new Product(csvReader.GetField(2), Double.Parse(csvReader.GetField(3)), Double.Parse(csvReader.GetField(4)), Double.Parse(csvReader.GetField(5)), Double.Parse(csvReader.GetField(6)));
+                    Component comp = new Component(prod, Double.Parse(csvReader.GetField(1)));
+
+                    meal.Components.Add(comp);
+                }
+            }
+            return returnValue;
         }
     }
 }

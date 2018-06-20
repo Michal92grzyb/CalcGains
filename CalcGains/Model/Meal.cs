@@ -15,7 +15,13 @@ namespace CalcGains.Model
             Components = components;
             _dateConsumed = DateTime.Now;
         }
-        
+
+        public Meal()
+        {
+            Components = new List<Component>();
+            _dateConsumed = DateTime.Now;
+        }
+
         public double TotalWeight
         {
             get
@@ -86,6 +92,7 @@ namespace CalcGains.Model
         public DateTime DateConsumed
         {
             get { return _dateConsumed; }
+            set { _dateConsumed = value; }
         }
     }
 }

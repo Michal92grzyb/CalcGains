@@ -229,7 +229,7 @@ namespace CalcGains.ViewModels
             AddProductVisibility = false;
             AddMealVisibility = false;
             _productsList = ProductsSaver.LoadFromCsv();
-            _mealList = new List<Meal>(); // beda ladowane z pliku
+            _mealList = ProductsSaver.LoadMealsFromCsv();
             AddedProducts = "Obecnie dodane produkty: ";
             RaisePropertyChanged();
         }
