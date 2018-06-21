@@ -39,12 +39,7 @@ namespace CalcGains.Model
         {
             get
             {
-                double returnValue = 0;
-                foreach (var comp in Components)
-                {
-                    returnValue += comp.Product.Calories;
-                }
-                return returnValue;
+                return Components.Sum(x => x.TotalCarbohydrates);
             }
         }
 
@@ -52,12 +47,7 @@ namespace CalcGains.Model
         {
             get
             {
-                double returnValue = 0;
-                foreach (var comp in Components)
-                {
-                    returnValue += comp.Product.Protein;
-                }
-                return returnValue;
+                return Components.Sum(x => x.TotalProtein);
             }
         }
 
@@ -65,12 +55,7 @@ namespace CalcGains.Model
         {
             get
             {
-                double returnValue = 0;
-                foreach (var comp in Components)
-                {
-                    returnValue += comp.Product.Fat;
-                }
-                return returnValue;
+                return Components.Sum(x => x.TotalFat);
             }
         }
 
@@ -78,13 +63,7 @@ namespace CalcGains.Model
         {
             get
             {
-                double returnValue = 0;
-                returnValue = Components.Sum(x => x.Product.Carbs);
-                //foreach (var comp in Components)
-                //{
-                //    returnValue += comp.Product.Carbs;
-                //}
-                return returnValue;
+                return Components.Sum(x => x.TotalCarbohydrates);
             }
         }
 

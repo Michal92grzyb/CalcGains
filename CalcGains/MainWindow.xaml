@@ -101,7 +101,7 @@
                 VerticalAlignment="Top"
                 Margin="10"
                 IsReadOnly="True"
-                SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                SelectedItem="{Binding SelectedMeal, Mode=TwoWay}"
                 ItemsSource="{Binding Meals}">
                 <DataGrid.Columns>
                     <DataGridTextColumn    
