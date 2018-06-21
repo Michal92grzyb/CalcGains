@@ -23,6 +23,7 @@ namespace CalcGains.ViewModels
         public ICommand AddMealCommand { get; private set; }
         public ICommand AddMealDoneCommand { get; private set; }
         public ICommand AddProductToMealCommand { get; private set; }
+        public ICommand RemoveMealCommand { get; private set; }
 
         private bool _isEditingProduct = false;
 
@@ -105,6 +106,20 @@ namespace CalcGains.ViewModels
             set
             {
                 _selectedProduct = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Meal _selectedMeal;
+        public Meal SelectedMeal
+        {
+            get
+            {
+                return _selectedMeal;
+            }
+            set
+            {
+                _selectedMeal = value;
                 RaisePropertyChanged();
             }
         }
@@ -226,12 +241,20 @@ namespace CalcGains.ViewModels
             AddMealCommand = new RelayCommand(ShowAddMealBar);
             AddMealDoneCommand = new RelayCommand(AddMeal);
             AddProductToMealCommand = new RelayCommand(AddProductToMeal);
+            RemoveMealCommand = new RelayCommand(RemoveMeal);
             AddProductVisibility = false;
             AddMealVisibility = false;
             _productsList = ProductsSaver.LoadFromCsv();
             _mealList = ProductsSaver.LoadMealsFromCsv();
             AddedProducts = "Obecnie dodane produkty: ";
             RaisePropertyChanged();
+        }
+
+        private void RemoveMeal()
+        {
+            _mealList.Remove(SelectedMeal);
+            ProductsSaver.SaveMealsToCsv(_mealList);
+            Meals = new ObservableCollection<Meal>(_mealList);
         }
 
         private void AddProductToMeal()

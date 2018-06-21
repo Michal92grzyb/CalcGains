@@ -106,7 +106,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn    
                         Header="Date" 
-                        Binding="{Binding DateConsumed, StringFormat={}{0:dd.mm.yy}}" 
+                        Binding="{Binding DateConsumed, StringFormat={}{0:dd.MM.yy}}" 
                         Width="*" />
                     <DataGridTextColumn   
                         Header="Weight" 
@@ -146,7 +146,7 @@
                 <Button 
                     Grid.Column="1"
                     Content="Usuń posiłek"
-                    Command="{Binding AddMealCommand}"
+                    Command="{Binding RemoveMealCommand}"
                     Margin="15"/>
                 <Button 
                     Grid.Column="2"

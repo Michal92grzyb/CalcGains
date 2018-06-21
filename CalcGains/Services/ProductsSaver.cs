@@ -87,16 +87,41 @@ namespace CalcGains.Services
                         {
                             returnValue.Add(meal);
                             meal = new Meal();
-                            meal.DateConsumed = DateTime.Parse(csvReader.GetField(0));
                         }
+                        meal.DateConsumed = DateTime.Parse(csvReader.GetField(0));
                     }
                     Product prod = new Product(csvReader.GetField(2), Double.Parse(csvReader.GetField(3)), Double.Parse(csvReader.GetField(4)), Double.Parse(csvReader.GetField(5)), Double.Parse(csvReader.GetField(6)));
                     Component comp = new Component(prod, Double.Parse(csvReader.GetField(1)));
 
                     meal.Components.Add(comp);
                 }
+                returnValue.Add(meal); // add last meal
             }
             return returnValue;
+        }
+
+        public static void SaveMealsToCsv(List<Meal> meals)
+        {
+            using (TextWriter writer = new StreamWriter("Meals.csv", false))
+            {
+                var csvWriter = new CsvWriter(writer);
+                csvWriter.Configuration.Delimiter = "\t";
+                foreach (Meal meal in meals)
+                {
+                    foreach (Component component in meal.Components)
+                    {
+                        csvWriter.WriteField(meal.DateConsumed);
+                        csvWriter.WriteField(component.Weight);
+                        csvWriter.WriteField(component.Product.Name);
+                        csvWriter.WriteField(component.Product.Calories);
+                        csvWriter.WriteField(component.Product.Protein);
+                        csvWriter.WriteField(component.Product.Fat);
+                        csvWriter.WriteField(component.Product.Carbs);
+                        csvWriter.NextRecord();
+                    }
+                }
+                writer.Flush();
+            }
         }
     }
 }
