@@ -259,9 +259,20 @@ namespace CalcGains.ViewModels
 
         private void AddProductToMeal()
         {
-            Component newComponent = new Component(_productsList.Single(x => x.Name == ProductToAdd), ProductToAddWeight);
-            MealToAdd.Components.Add(newComponent);
-            AddedProducts += "\n" + ProductToAdd + ", waga: " + ProductToAddWeight + "g,";
+            if (MealToAdd.Components.Any(x => x.Product.Name == ProductToAdd))
+            {
+                double oldWeight = MealToAdd.Components.First(x => x.Product.Name == ProductToAdd).Weight;
+                double newWeight = MealToAdd.Components.First(x => x.Product.Name == ProductToAdd).Weight + ProductToAddWeight;
+                string swapAddedProducts = AddedProducts.Replace("\n" + ProductToAdd + ", waga: " + oldWeight + "g,", "\n" + ProductToAdd + ", waga: " + newWeight + "g,");
+                AddedProducts = swapAddedProducts;
+                MealToAdd.Components.First(x => x.Product.Name == ProductToAdd).Weight = newWeight;
+            }
+            else
+            {
+                Component newComponent = new Component(_productsList.Single(x => x.Name == ProductToAdd), ProductToAddWeight);
+                MealToAdd.Components.Add(newComponent);
+                AddedProducts += "\n" + ProductToAdd + ", waga: " + ProductToAddWeight + "g,";
+            }
         }
 
         private void AddMeal()

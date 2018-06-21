@@ -73,5 +73,6 @@ namespace CalcGains.Model
             get { return _dateConsumed; }
             set { _dateConsumed = value; }
         }
+        
     }
 }
