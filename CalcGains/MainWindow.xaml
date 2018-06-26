@@ -8,7 +8,28 @@
         mc:Ignorable="d"
         Title="MainWindow"
         MinWidth="800">
-    <Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Click="Button_Click"/>
+            <Button Click="Button_Click_1" Grid.Row="1"/>
+        </Grid>
+        <DockPanel Grid.Column="1">
+            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" />
+        </DockPanel>
+    </Grid>
+    <!--<Window.Resources>
         <vm:MainWindowViewModel x:Key="vm"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
@@ -318,5 +339,5 @@
                     VerticalAlignment="Center"
                     Command="{Binding AddMealDoneCommand}"/>
         </Grid>
-    </Grid>
+    </Grid>-->
 </Window>

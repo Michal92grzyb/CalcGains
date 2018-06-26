@@ -1,4 +1,5 @@
 ﻿using CalcGains.ViewModels;
+using CalcGains.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,16 @@ namespace CalcGains
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _NavigationFrame.Navigate(new OverviewView());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            _NavigationFrame.Navigate(new RedTestPage());
         }
     }
 }
