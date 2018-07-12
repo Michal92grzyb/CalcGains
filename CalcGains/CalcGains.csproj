@@ -78,6 +78,7 @@
     <Compile Include="Services\ProductsReader.cs" />
     <Compile Include="Services\ProductsSaver.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="Views\BlueTestPage.xaml.cs">
       <DependentUpon>BlueTestPage.xaml</DependentUpon>
     </Compile>

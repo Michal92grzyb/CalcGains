@@ -25,6 +25,7 @@ namespace CalcGains
         public MainWindow()
         {
             InitializeComponent();
+            Button_Click(null, null);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,7 +35,7 @@ namespace CalcGains
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new RedTestPage());
+            //_NavigationFrame.Navigate(new RedTestPage());
         }
     }
 }

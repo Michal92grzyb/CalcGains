@@ -238,6 +238,7 @@ namespace CalcGains.ViewModels
             AddProductDoneCommand = new RelayCommand(AddProduct);
             RemoveProductCommand = new RelayCommand(RemoveProduct);
             EditProductCommand = new RelayCommand(EditProduct);
+
             AddMealCommand = new RelayCommand(ShowAddMealBar);
             AddMealDoneCommand = new RelayCommand(AddMeal);
             AddProductToMealCommand = new RelayCommand(AddProductToMeal);
@@ -294,6 +295,7 @@ namespace CalcGains.ViewModels
         {
             AddProductVisibility = !AddProductVisibility;
         }
+
 
         private void EditProduct()
         {
