@@ -12,7 +12,7 @@ namespace CalcGains.ViewModels
 {
     public class OverviewViewModel : ViewModelBase
     {
-
+        #region Products props
         private List<Product> _productsList;
         public ObservableCollection<Product> Products
         {
@@ -109,7 +109,108 @@ namespace CalcGains.ViewModels
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
+        #region Meal props
+
+        private List<Product> _productsListMeal;
+        public ObservableCollection<Product> ProductsMeal
+        {
+            get
+            {
+                return new ObservableCollection<Product>(_productsListMeal);
+            }
+            set
+            {
+                _productsListMeal = value.ToList<Product>();
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _productNameMeal;
+        public string ProductNameMeal
+        {
+            get
+            {
+                return _productNameMeal;
+            }
+            set
+            {
+                _productNameMeal = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _caloriesMeal;
+        public string CaloriesMeal
+        {
+            get
+            {
+                return _caloriesMeal;
+            }
+            set
+            {
+                _caloriesMeal = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _proteinMeal;
+        public string ProteinMeal
+        {
+            get
+            {
+                return _proteinMeal;
+            }
+            set
+            {
+                _proteinMeal = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _fatMeal;
+        public string FatMeal
+        {
+            get
+            {
+                return _fatMeal;
+            }
+            set
+            {
+                _fat = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _carbsMeal;
+        public string CarbsMeal
+        {
+            get
+            {
+                return _carbs;
+            }
+            set
+            {
+                _carbs = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Product _selectedProductMeal;
+        public Product SelectedProductMeal
+        {
+            get
+            {
+                return _selectedProductMeal;
+            }
+            set
+            {
+                _selectedProductMeal = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
 
         public OverviewViewModel()
         {
