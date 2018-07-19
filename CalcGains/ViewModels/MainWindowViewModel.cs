@@ -234,6 +234,7 @@ namespace CalcGains.ViewModels
 
         public MainWindowViewModel()
         {
+
             AddProductCommand = new RelayCommand(ShowAddProductBar);
             AddProductDoneCommand = new RelayCommand(AddProduct);
             RemoveProductCommand = new RelayCommand(RemoveProduct);
