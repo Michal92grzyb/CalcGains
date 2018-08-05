@@ -30,12 +30,13 @@ namespace CalcGains
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new OverviewView());
+            _NavigationFrame.Navigate(new OverviewView()); // musze sprawdzic jak przelaczac miedzy oknami, na pewno potrzebuje applicationContext, ale jeszcze musze
+            // miec jakies gowno ktore bedzie mi rozdawac widoki, zeby ich nie tworzyc Bog wie ile.
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //_NavigationFrame.Navigate(new RedTestPage());
+            _NavigationFrame.Navigate(new RedTestPage());
         }
     }
 }

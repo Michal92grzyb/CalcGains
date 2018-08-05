@@ -16,6 +16,7 @@
         Background="AliceBlue"
         DataContext="{StaticResource vm}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition MinHeight="300" Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -23,8 +24,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <TextBlock Text="Przegląd codzienny:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3"/>
         <Grid
-            Margin="10">
+            Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
@@ -107,6 +109,39 @@
                     VerticalAlignment="Center"
                     Command="{Binding FinishMeal}"/>
             </Grid>
+        </Grid>
+        <Grid 
+            Grid.Column="1"
+            Grid.Row="2">
+            <DataGrid 
+                AutoGenerateColumns="False"
+                VerticalAlignment="Top"
+                IsReadOnly="True"
+                SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                ItemsSource="{Binding Products}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn   
+                        Header="Name" 
+                        Binding="{Binding Name}" 
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Calories"
+                        Binding="{Binding Calories}" 
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Protein" 
+                        Binding="{Binding Protein}" 
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Fat" 
+                        Binding="{Binding Fat}"
+                        Width="*" />
+                    <DataGridTextColumn    
+                        Header="Carbohydrates" 
+                        Binding="{Binding Carbs }" 
+                        Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </Page>
