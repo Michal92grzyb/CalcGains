@@ -1,17 +1,20 @@
 ﻿using CalcGains.Model;
 using CalcGains.Services;
 using GalaSoft.MvvmLight;
-using System;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CalcGains.ViewModels
 {
     public class OverviewViewModel : ViewModelBase
     {
+        public ICommand ChangeSearchReesultsCommand { get; set; }
+
         #region Products props
         private List<Product> _productsList;
         public ObservableCollection<Product> Products
@@ -27,195 +30,53 @@ namespace CalcGains.ViewModels
             }
         }
 
-        private string _productName;
-        public string ProductName
+        private List<Product> _filteredProducts;
+        public ObservableCollection<Product> FilteredProducts
         {
             get
             {
-                return _productName;
-            }
-            set
-            {
-                _productName = value;
-                RaisePropertyChanged();
+                if (SearchText == string.Empty)
+                    return Products;
+                return new ObservableCollection<Product>(_productsList.Where(x => x.Name.Contains(SearchText)));
             }
         }
 
-        private string _calories;
-        public string Calories
+        private string _searchText = string.Empty;
+        public string SearchText
         {
             get
             {
-                return _calories;
+                return _searchText;
             }
             set
             {
-                _calories = value;
+                _searchText = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(FilteredProducts));
             }
         }
 
-        private string _protein;
-        public string Protein
+        public IEnumerable<string> ProductsNames
         {
             get
             {
-                return _protein;
-            }
-            set
-            {
-                _protein = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _fat;
-        public string Fat
-        {
-            get
-            {
-                return _fat;
-            }
-            set
-            {
-                _fat = value;
-                RaisePropertyChanged();
-            }
-        }
-        private string _carbs;
-        public string Carbs
-        {
-            get
-            {
-                return _carbs;
-            }
-            set
-            {
-                _carbs = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private Product _selectedProduct;
-        public Product SelectedProduct
-        {
-            get
-            {
-                return _selectedProduct;
-            }
-            set
-            {
-                _selectedProduct = value;
-                RaisePropertyChanged();
+                var list = Products.Select(x => x.Name).Distinct();
+                return list;
             }
         }
         #endregion
-
-        #region Meal props
-
-        private List<Product> _productsListMeal;
-        public ObservableCollection<Product> ProductsMeal
-        {
-            get
-            {
-                return new ObservableCollection<Product>(_productsListMeal);
-            }
-            set
-            {
-                _productsListMeal = value.ToList<Product>();
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _productNameMeal;
-        public string ProductNameMeal
-        {
-            get
-            {
-                return _productNameMeal;
-            }
-            set
-            {
-                _productNameMeal = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _caloriesMeal;
-        public string CaloriesMeal
-        {
-            get
-            {
-                return _caloriesMeal;
-            }
-            set
-            {
-                _caloriesMeal = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _proteinMeal;
-        public string ProteinMeal
-        {
-            get
-            {
-                return _proteinMeal;
-            }
-            set
-            {
-                _proteinMeal = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _fatMeal;
-        public string FatMeal
-        {
-            get
-            {
-                return _fatMeal;
-            }
-            set
-            {
-                _fat = value;
-                RaisePropertyChanged();
-            }
-        }
-        private string _carbsMeal;
-        public string CarbsMeal
-        {
-            get
-            {
-                return _carbs;
-            }
-            set
-            {
-                _carbs = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private Product _selectedProductMeal;
-        public Product SelectedProductMeal
-        {
-            get
-            {
-                return _selectedProductMeal;
-            }
-            set
-            {
-                _selectedProductMeal = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
+        
 
         public OverviewViewModel()
         {
             _productsList = ProductsSaver.LoadFromCsv();
+            ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
             RaisePropertyChanged();
+        }
+
+        private void ChangeSearchReesults(string newSearch)
+        {
+            SearchText = newSearch;
         }
     }
 }
