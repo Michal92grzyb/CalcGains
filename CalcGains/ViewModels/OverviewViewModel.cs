@@ -41,6 +41,20 @@ namespace CalcGains.ViewModels
             }
         }
 
+        private List<Product> _addedProducts;
+        public ObservableCollection<Product> AddedProducts
+        {
+            get
+            {
+                return new ObservableCollection<Product>(_addedProducts);
+            }
+            set
+            {
+                _productsList = value.ToList<Product>();
+                RaisePropertyChanged();
+            }
+        }
+
         private string _searchText = string.Empty;
         public string SearchText
         {
@@ -70,6 +84,7 @@ namespace CalcGains.ViewModels
         public OverviewViewModel()
         {
             _productsList = ProductsSaver.LoadFromCsv();
+            _addedProducts = new List<Product>();
             ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
             RaisePropertyChanged();
         }

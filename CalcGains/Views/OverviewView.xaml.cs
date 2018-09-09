@@ -25,9 +25,10 @@ namespace CalcGains.Views
             InitializeComponent();
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             (MainGrid.DataContext as OverviewViewModel).ChangeSearchReesultsCommand.Execute((sender as TextBox).Text);
+
         }
     }
 }
