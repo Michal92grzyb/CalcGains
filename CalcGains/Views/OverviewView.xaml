@@ -100,6 +100,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
+                <Button Grid.Row="2" Content="Dodaj" Command="{Binding AddToMealCommand}"/>
             </Grid>
 
             <Grid Grid.Column="1" Grid.Row="1">
@@ -109,8 +110,7 @@
                 x:Name="SelectedProductsList" 
                 VerticalAlignment="Top"
                 IsReadOnly="True"
-                SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
-                ItemsSource="{Binding AddedProducts}">
+                ItemsSource="{Binding AddedProducts, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn   
                         Header="Name" 

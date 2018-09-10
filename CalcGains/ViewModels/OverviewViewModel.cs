@@ -14,6 +14,7 @@ namespace CalcGains.ViewModels
     public class OverviewViewModel : ViewModelBase
     {
         public ICommand ChangeSearchReesultsCommand { get; set; }
+        public ICommand AddToMealCommand { get; set; }
 
         #region Products props
         private List<Product> _productsList;
@@ -50,7 +51,7 @@ namespace CalcGains.ViewModels
             }
             set
             {
-                _productsList = value.ToList<Product>();
+                _addedProducts = value.ToList<Product>();
                 RaisePropertyChanged();
             }
         }
@@ -78,6 +79,20 @@ namespace CalcGains.ViewModels
                 return list;
             }
         }
+
+        private Product _selectedProduct;
+        public Product SelectedProduct
+        {
+            get
+            {
+                return _selectedProduct;
+            }
+            set
+            {
+                _selectedProduct = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         
 
@@ -86,7 +101,18 @@ namespace CalcGains.ViewModels
             _productsList = ProductsSaver.LoadFromCsv();
             _addedProducts = new List<Product>();
             ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
+            AddToMealCommand = new RelayCommand(AddToMeal);
             RaisePropertyChanged();
+        }
+
+        private void AddToMeal()
+        {
+            if (SelectedProduct != null)
+            {
+                List<Product> tempList = new List<Product>(AddedProducts);
+                tempList.Add(SelectedProduct);
+                AddedProducts = new ObservableCollection<Product>(tempList); // it sucks.
+            }
         }
 
         private void ChangeSearchReesults(string newSearch)
