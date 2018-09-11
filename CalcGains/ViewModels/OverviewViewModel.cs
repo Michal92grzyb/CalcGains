@@ -15,6 +15,7 @@ namespace CalcGains.ViewModels
     {
         public ICommand ChangeSearchReesultsCommand { get; set; }
         public ICommand AddToMealCommand { get; set; }
+        public ICommand RemoveFromMealCommand { get; set; }
 
         #region Products props
         private List<Product> _productsList;
@@ -93,8 +94,22 @@ namespace CalcGains.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        private Product _selectedAddedProduct;
+        public Product SelectedAddedProduct
+        {
+            get
+            {
+                return _selectedAddedProduct;
+            }
+            set
+            {
+                _selectedAddedProduct = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
-        
+
 
         public OverviewViewModel()
         {
@@ -102,6 +117,7 @@ namespace CalcGains.ViewModels
             _addedProducts = new List<Product>();
             ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
             AddToMealCommand = new RelayCommand(AddToMeal);
+            RemoveFromMealCommand = new RelayCommand(RemoveFromMeal);
             RaisePropertyChanged();
         }
 
@@ -111,6 +127,16 @@ namespace CalcGains.ViewModels
             {
                 List<Product> tempList = new List<Product>(AddedProducts);
                 tempList.Add(SelectedProduct);
+                AddedProducts = new ObservableCollection<Product>(tempList); // it sucks.
+            }
+        }
+
+        private void RemoveFromMeal()
+        {
+            if (SelectedAddedProduct != null)
+            {
+                List<Product> tempList = new List<Product>(AddedProducts);
+                tempList.Remove(SelectedAddedProduct);
                 AddedProducts = new ObservableCollection<Product>(tempList); // it sucks.
             }
         }
