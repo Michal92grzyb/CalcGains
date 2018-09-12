@@ -125,20 +125,25 @@
                         Width="*" />
                         <DataGridTextColumn    
                         Header="Calories"
-                        Binding="{Binding Calories}" 
+                        Binding="{Binding TotalCalories}" 
                         Width="*" />
                         <DataGridTextColumn    
                         Header="Protein" 
-                        Binding="{Binding Protein}" 
+                        Binding="{Binding TotalProtein}" 
                         Width="*" />
                         <DataGridTextColumn    
                         Header="Fat" 
-                        Binding="{Binding Fat}"
+                        Binding="{Binding TotalFat}"
                         Width="*" />
                         <DataGridTextColumn    
                         Header="Carbohydrates" 
-                        Binding="{Binding Carbs}" 
+                        Binding="{Binding TotalCarbohydrates}" 
                         Width="*" />
+                        <DataGridTextColumn    
+                        Header="Weight" 
+                        Binding="{Binding Weight, Mode=TwoWay}" 
+                        Width="*"
+                            IsReadOnly="False"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button Grid.Row="2" Content="Remove" Command="{Binding RemoveFromMealCommand}" />

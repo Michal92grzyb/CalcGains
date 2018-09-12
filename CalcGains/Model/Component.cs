@@ -10,6 +10,7 @@ namespace CalcGains.Model
     {
         public double Weight { get; set; }
         public Product Product { get; set; }
+        public string Name { get; set; }
 
         public double TotalCalories
         {
@@ -32,6 +33,7 @@ namespace CalcGains.Model
         {
             Product = product;
             Weight = weight;
+            Name = product.Name;
         }
     }
 }

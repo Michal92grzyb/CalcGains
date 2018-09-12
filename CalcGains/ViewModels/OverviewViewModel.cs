@@ -43,16 +43,16 @@ namespace CalcGains.ViewModels
             }
         }
 
-        private List<Product> _addedProducts;
-        public ObservableCollection<Product> AddedProducts
+        private List<Component> _addedProducts;
+        public ObservableCollection<Component> AddedProducts
         {
             get
             {
-                return new ObservableCollection<Product>(_addedProducts);
+                return new ObservableCollection<Component>(_addedProducts);
             }
             set
             {
-                _addedProducts = value.ToList<Product>();
+                _addedProducts = value.ToList<Component>();
                 RaisePropertyChanged();
             }
         }
@@ -95,8 +95,8 @@ namespace CalcGains.ViewModels
             }
         }
 
-        private Product _selectedAddedProduct;
-        public Product SelectedAddedProduct
+        private Component _selectedAddedProduct;
+        public Component SelectedAddedProduct
         {
             get
             {
@@ -114,7 +114,7 @@ namespace CalcGains.ViewModels
         public OverviewViewModel()
         {
             _productsList = ProductsSaver.LoadFromCsv();
-            _addedProducts = new List<Product>();
+            _addedProducts = new List<Component>();
             ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
             AddToMealCommand = new RelayCommand(AddToMeal);
             RemoveFromMealCommand = new RelayCommand(RemoveFromMeal);
@@ -125,9 +125,9 @@ namespace CalcGains.ViewModels
         {
             if (SelectedProduct != null)
             {
-                List<Product> tempList = new List<Product>(AddedProducts);
-                tempList.Add(SelectedProduct);
-                AddedProducts = new ObservableCollection<Product>(tempList); // it sucks.
+                List<Component> tempList = new List<Component>(AddedProducts);
+                tempList.Add(new Component(SelectedProduct, 0));
+                AddedProducts = new ObservableCollection<Component>(tempList); // it sucks.
             }
         }
 
@@ -135,9 +135,9 @@ namespace CalcGains.ViewModels
         {
             if (SelectedAddedProduct != null)
             {
-                List<Product> tempList = new List<Product>(AddedProducts);
+                List<Component> tempList = new List<Component>(AddedProducts);
                 tempList.Remove(SelectedAddedProduct);
-                AddedProducts = new ObservableCollection<Product>(tempList); // it sucks.
+                AddedProducts = new ObservableCollection<Component>(tempList); // it sucks.
             }
         }
 
