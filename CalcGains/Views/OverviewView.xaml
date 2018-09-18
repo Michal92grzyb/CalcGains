@@ -30,7 +30,7 @@
 
         <TextBlock Text="1. Wybierz datę." HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
         <!--to coś ma na dzień dobry pokazywać datę dzisiejszą-->
-        <DatePicker Grid.Row="2" Width="100"/>
+        <DatePicker Grid.Row="2" Width="100" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
         <Line Stroke="Black" X1="0" X2="10000" Y1="0" Y2="0" VerticalAlignment="Bottom" Grid.Row="2" />
 
         <Grid Grid.Row="3">
@@ -42,7 +42,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="2. Dodaj produkty, jakie będą składały się na posiłek." HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" />
@@ -65,12 +65,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <TextBlock Text="Sortuj po nazwie:" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBox TextChanged='TextBox_TextChanged' Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10"/>
                 </Grid>
 
-                <DataGrid 
+                <!--<DataGrid 
                 Grid.Row="1"
                 AutoGenerateColumns="False" 
                 x:Name="ProductsList" 
@@ -100,59 +100,28 @@
                         Binding="{Binding Carbs}" 
                         Width="*" />
                     </DataGrid.Columns>
-                </DataGrid>
+                </DataGrid>-->
+
+                <xcdg:DataGridControl  
+                Grid.Row="1"
+                x:Name="SelectedProductsList3" 
+                VerticalAlignment="Top"
+                    AutoCreateColumns="False"
+                SelectedItem="{Binding SelectedProduct}"
+                ItemsSource="{Binding FilteredProducts}">
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column FieldName="Name" Title="Name" Width="*" ReadOnly="True" IsMainColumn="True"/>
+                        <xcdg:Column FieldName="Calories" Title="Calories" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="Protein" Title="Protein" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="Fat" Title="Fat" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="Carbohydrates" Title="Carbohydrates" Width="*" ReadOnly="True"/>
+                    </xcdg:DataGridControl.Columns>
+                </xcdg:DataGridControl>
 
                 <Button Grid.Row="2" Content="Dodaj" Command="{Binding AddToMealCommand}"/>
             </Grid>
 
             <Grid Grid.Column="1" Grid.Row="1">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
-                <DataGrid 
-                Grid.Row="1"
-                AutoGenerateColumns="False" 
-                x:Name="SelectedProductsList" 
-                VerticalAlignment="Top"
-                IsReadOnly="True"
-                SelectedItem="{Binding SelectedAddedProduct}"
-                ItemsSource="{Binding AddedProducts, Mode=TwoWay}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn   
-                        Header="Name" 
-                        Binding="{Binding Name}" 
-                        Width="*" />
-                        <DataGridTextColumn    
-                        Header="Calories"
-                        Binding="{Binding TotalCalories}" 
-                        Width="*" />
-                        <DataGridTextColumn    
-                        Header="Protein" 
-                        Binding="{Binding TotalProtein}" 
-                        Width="*" />
-                        <DataGridTextColumn    
-                        Header="Fat" 
-                        Binding="{Binding TotalFat}"
-                        Width="*" />
-                        <DataGridTextColumn    
-                        Header="Carbohydrates" 
-                        Binding="{Binding TotalCarbohydrates}" 
-                        Width="*" />
-                        <DataGridTextColumn    
-                        Header="Weight" 
-                        Binding="{Binding Weight, Mode=TwoWay}" 
-                        Width="*"
-                            IsReadOnly="False"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Button Grid.Row="2" Content="Remove" Command="{Binding RemoveFromMealCommand}" />
-
-            </Grid>
-
-            <Grid Grid.Column="2" Grid.Row="1">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
@@ -176,6 +145,7 @@
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>
 
+                <Button Grid.Row="2" Content="Usuń" Command="{Binding RemoveFromMealCommand}" />
             </Grid>
 
         </Grid>

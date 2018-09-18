@@ -2,6 +2,7 @@
 using CalcGains.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,6 +17,24 @@ namespace CalcGains.ViewModels
         public ICommand ChangeSearchReesultsCommand { get; set; }
         public ICommand AddToMealCommand { get; set; }
         public ICommand RemoveFromMealCommand { get; set; }
+
+        private DateTime _selectedDate;
+        public DateTime SelectedDate
+        {
+            get
+            {
+                return _selectedDate;
+            }
+            set
+            {
+                if (_selectedDate != value)
+                {
+                    _selectedDate = value;
+                    AddedProducts = new ObservableCollection<Component>();
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         #region Products props
         private List<Product> _productsList;
@@ -118,6 +137,7 @@ namespace CalcGains.ViewModels
             ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
             AddToMealCommand = new RelayCommand(AddToMeal);
             RemoveFromMealCommand = new RelayCommand(RemoveFromMeal);
+            SelectedDate = DateTime.Now;
             RaisePropertyChanged();
         }
 
