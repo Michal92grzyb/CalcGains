@@ -127,6 +127,8 @@ namespace CalcGains.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public List<Meal> DailyMealList; // gotta create application context, that feeds all containers.
         #endregion
 
 

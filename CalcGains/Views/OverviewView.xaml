@@ -148,6 +148,32 @@
                 <Button Grid.Row="2" Content="Usuń" Command="{Binding RemoveFromMealCommand}" />
             </Grid>
 
+            <Grid Grid.Column="1" Grid.Row="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <xcdg:DataGridControl  
+                Grid.Row="1"
+                x:Name="SelectedProductsList5" 
+                VerticalAlignment="Top"
+                    AutoCreateColumns="False"
+                SelectedItem="{Binding SelectedAddedProduct}"
+                ItemsSource="{Binding AddedProducts, Mode=TwoWay}">
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column FieldName="Name" Title="Name" Width="*" ReadOnly="True" IsMainColumn="True"/>
+                        <xcdg:Column FieldName="TotalCalories" Title="Calories" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="TotalProtein" Title="Protein" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="TotalFat" Title="Fat" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="TotalCarbohydrates" Title="Carbohydrates" Width="*" ReadOnly="True"/>
+                        <xcdg:Column FieldName="Weight" Title="Weight" Width="*" ReadOnly="False"/>
+                    </xcdg:DataGridControl.Columns>
+                </xcdg:DataGridControl>
+
+            </Grid>
+
         </Grid>
 
     </Grid>

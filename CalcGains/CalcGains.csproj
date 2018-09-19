@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Component.cs" />
+    <Compile Include="Model\DailyBalance.cs" />
     <Compile Include="Model\Meal.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Program.cs" />
