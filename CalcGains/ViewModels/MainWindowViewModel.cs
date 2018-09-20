@@ -246,8 +246,8 @@ namespace CalcGains.ViewModels
             RemoveMealCommand = new RelayCommand(RemoveMeal);
             AddProductVisibility = false;
             AddMealVisibility = false;
-            _productsList = ProductsSaver.LoadFromCsv();
-            _mealList = ProductsSaver.LoadMealsFromCsv();
+            _productsList = ProductsSaver.Instance.LoadFromCsv();
+            _mealList = ProductsSaver.Instance.LoadMealsFromCsv();
             AddedProducts = "Obecnie dodane produkty: ";
             RaisePropertyChanged();
         }
@@ -255,7 +255,7 @@ namespace CalcGains.ViewModels
         private void RemoveMeal()
         {
             _mealList.Remove(SelectedMeal);
-            ProductsSaver.SaveMealsToCsv(_mealList);
+            ProductsSaver.Instance.SaveMealsToCsv(_mealList);
             Meals = new ObservableCollection<Meal>(_mealList);
         }
 
@@ -283,7 +283,7 @@ namespace CalcGains.ViewModels
             AddMealVisibility = false;
             AddedProducts = "Obecnie dodane produkty: ";
             Meals = new ObservableCollection<Meal>(_mealList); // tutuaj
-            ProductsSaver.SaveMealsToCsv(MealToAdd);
+            ProductsSaver.Instance.SaveMealsToCsv(MealToAdd);
         }
 
         private void ShowAddMealBar()
@@ -317,7 +317,7 @@ namespace CalcGains.ViewModels
         {
             _productsList.Remove((Product)SelectedProduct);
             Products = new ObservableCollection<Product>(_productsList);
-            ProductsSaver.SaveToCsv(_productsList);
+            ProductsSaver.Instance.SaveToCsv(_productsList);
         }
 
         private void AddProduct()
@@ -337,7 +337,7 @@ namespace CalcGains.ViewModels
                     _productsList.Add(newProduct);
                     Products = new ObservableCollection<Product>(_productsList);
                     Calories = Protein = Fat = Carbs = ProductName = string.Empty;
-                    ProductsSaver.SaveToCsv(_productsList);
+                    ProductsSaver.Instance.SaveToCsv(_productsList);
                     }
                     else
                         MessageBox.Show("same data", "Error");
@@ -356,7 +356,7 @@ namespace CalcGains.ViewModels
                         _productsList.Insert(index, newProduct);
                         Products = new ObservableCollection<Product>(_productsList);
                         Calories = Protein = Fat = Carbs = ProductName = string.Empty;
-                        ProductsSaver.SaveToCsv(_productsList);
+                        ProductsSaver.Instance.SaveToCsv(_productsList);
                     }
                     else
                         MessageBox.Show("same data", "Error");

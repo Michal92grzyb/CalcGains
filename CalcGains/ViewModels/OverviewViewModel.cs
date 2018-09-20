@@ -134,7 +134,7 @@ namespace CalcGains.ViewModels
 
         public OverviewViewModel()
         {
-            _productsList = ProductsSaver.LoadFromCsv();
+            _productsList = ProductsSaver.Instance.LoadFromCsv();
             _addedProducts = new List<Component>();
             ChangeSearchReesultsCommand = new RelayCommand<string>(ChangeSearchReesults);
             AddToMealCommand = new RelayCommand(AddToMeal);

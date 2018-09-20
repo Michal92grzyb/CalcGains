@@ -10,9 +10,18 @@ using CsvHelper.Configuration;
 
 namespace CalcGains.Services
 {
-    public static class ProductsSaver
+    public class ProductsSaver
     {
-        public static void SaveToCsv(List<Product> products)
+        private static readonly Lazy<ProductsSaver> lazy =
+            new Lazy<ProductsSaver>(() => new ProductsSaver());
+
+        public static ProductsSaver Instance { get { return lazy.Value; } }
+
+        private ProductsSaver()
+        {
+        }
+
+        public void SaveToCsv(List<Product> products)
         {
             using (TextWriter writer = new StreamWriter("Products.csv", false))
             {
@@ -31,7 +40,7 @@ namespace CalcGains.Services
             }
         }
 
-        public static List<Product> LoadFromCsv()
+        public List<Product> LoadFromCsv()
         {
             List<Product> result = new List<Product>();
             using (TextReader reader = new StreamReader("Products.csv"))
@@ -49,7 +58,7 @@ namespace CalcGains.Services
             return result;
         }
 
-        public static void SaveMealsToCsv(Meal meal)
+        public void SaveMealsToCsv(Meal meal)
         {
             using (TextWriter writer = new StreamWriter("Meals.csv", true))
             {
@@ -70,7 +79,7 @@ namespace CalcGains.Services
             }
         }
 
-        public static List<Meal> LoadMealsFromCsv()
+        public List<Meal> LoadMealsFromCsv()
         {
             List<Meal> returnValue = new List<Meal>();
             using (TextReader reader = new StreamReader("Meals.csv"))
@@ -100,7 +109,7 @@ namespace CalcGains.Services
             return returnValue;
         }
 
-        public static void SaveMealsToCsv(List<Meal> meals)
+        public void SaveMealsToCsv(List<Meal> meals)
         {
             using (TextWriter writer = new StreamWriter("Meals.csv", false))
             {
